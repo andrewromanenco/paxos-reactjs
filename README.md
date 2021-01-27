@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# Paxos example in a react js app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a toy application to simulate multi Paxos running on top of three virtual nodes. When consensus is reached, values are added to the append-only log.
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+Since this is an react-js app, clone and run:
+```bash
+npm start
+```
+or see the live demo [here](https://www.romanenco.com/sim-reactjs/multi-paxos/). And see below for other examples and links.
 
-### `npm start`
+## How it works
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This application supports a virtual network, which connects virtual nodes together. Every node has a queue of commands to execute and every tick one command from each node is executed.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The UI shows every node's state and execution queue. The UI allows putting nodes to sleep and breaking the network to simulate partitioning.
 
-### `npm test`
+## Examples
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This app has actually four use cases. To enable a specific example, you'll have to edit App.js and pick the one you want.
 
-### `npm run build`
+The use case are:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Ping
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Two nodes. One node sends a ping and waits for a reply. [Live](https://www.romanenco.com/sim-reactjs/ping/)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Heart beat
 
-### `npm run eject`
+There are three servers and three watchers. Servers send heartbeat messages to all watchers. If a server stops sending the heartbeat, watchers mark the server as offline. [Live](https://www.romanenco.com/sim-reactjs/heartbeat/)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Basic Paxos
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If you are not familiar with Paxos, you probably want to start here. This is a "classic" implementation.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Three proposers propose their names to three acceptors. Proposers make a random delay to add a bit of variance. Eventually two learners learn which value was agreed on. [Live](https://www.romanenco.com/sim-reactjs/basic-paxos/)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Multi-Paxos
 
-## Learn More
+Multi Paxos is a quite vague definition. In this case, there are three nodes, each maintaining its own append-only log. A client offers numbers to add to the log to a random (NO leader) Paxos node. The client gets the result of the operation.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Basically, every node initiates a Paxos protocol instance for the next index in the log. In case of competing requests, only one value is selected and the other is rejected. [Live](https://www.romanenco.com/sim-reactjs/multi-paxos/)
