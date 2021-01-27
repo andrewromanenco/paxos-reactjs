@@ -26,17 +26,17 @@ The use case are:
 
 Two nodes. One node sends a ping and waits for a reply. [Live](https://www.romanenco.com/sim-reactjs/ping/)
 
-## Heart beat
+### Heart beat
 
 There are three servers and three watchers. Servers send heartbeat messages to all watchers. If a server stops sending the heartbeat, watchers mark the server as offline. [Live](https://www.romanenco.com/sim-reactjs/heartbeat/)
 
-## Basic Paxos
+### Basic Paxos
 
 If you are not familiar with Paxos, you probably want to start here. This is a "classic" implementation.
 
 Three proposers propose their names to three acceptors. Proposers make a random delay to add a bit of variance. Eventually two learners learn which value was agreed on. [Live](https://www.romanenco.com/sim-reactjs/basic-paxos/)
 
-## Multi-Paxos
+### Multi-Paxos
 
 Multi Paxos is a quite vague definition. In this case, there are three nodes, each maintaining its own append-only log. A client offers numbers to add to the log to a random (NO leader) Paxos node. The client gets the result of the operation.
 
