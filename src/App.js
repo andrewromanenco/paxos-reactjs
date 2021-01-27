@@ -121,7 +121,7 @@ class App extends React.Component {
                   </TableCell>
                   <TableCell>
                   {Object.entries(node.state).map(([k,v]) => (
-                    <div><pre>{k}: {JSON.stringify(v, null, 2)}</pre></div>
+                    <div key={node.name + k}><pre>{k}: {JSON.stringify(v, null, 2)}</pre></div>
                   ))}
                   </TableCell>
                 </TableRow>
@@ -145,7 +145,7 @@ class App extends React.Component {
         rows="1" />
         <Select value={this.state.nodeToSleep} onChange={this.handleNodeToSleepChange}>
           {this.state.nodes.map(node => (
-            <MenuItem value={node.name}>{node.name}</MenuItem>
+            <MenuItem key={node.name} value={node.name}>{node.name}</MenuItem>
           ))}
         </Select>
         <Button variant="contained" onClick={this.addSleepToNode}>Add sleep to {this.state.nodeToSleep}</Button><br/>
