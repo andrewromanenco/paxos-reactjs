@@ -1,7 +1,8 @@
 import './App.css';
 import MessageBroker from './MessageBroker';
-import Initializer from './heartbeat/HeartBeatExample'
+//import Initializer from './heartbeat/HeartBeatExample'
 //import Initializer from './ping/PingExample'
+import Initializer from './basic-paxos/BasicPaxosExample'
 import React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
